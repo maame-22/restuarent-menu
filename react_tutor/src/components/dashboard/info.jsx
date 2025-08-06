@@ -9,12 +9,19 @@ const [data , setData]= useState({})
  const navigate = useNavigate()
 
  useEffect(()=>{
-    axios.get(`http://localhost:3000/footer/`+id)
+
+
+
+  async function fetchData() {
+   await axios.get(`http://localhost:3000/footer/`+id)
    .then(res=>{
     setValues({...values , email:res.data[0].email , phone:res.data[0].phone , location:res.data[0].location ,
        facebook:res.data[0].facebook , instagram:res.data[0].instagram , twitter:res.data[0].twitter })
    }
   ).catch(err=>console.log(err))
+    
+  }
+  fetchData();
     }, [])
 
 const [values , setValues]= useState({
@@ -111,7 +118,7 @@ console.log(data)
                       </td>
                       <td>
                         <Link to={`/footer/${data.id}`}>
-                            <button  className=' mt-[3px] mb-[3px] ml-[10px] cursor-pointer outline-0 border-0 rounded-sm bg-green-700 text-white py-[3px] px-[3px]'>
+                            <button  onClick={(e)=>{location.reload() , e.stopPropagation()} } className=' mt-[3px] mb-[3px] ml-[10px] cursor-pointer outline-0 border-0 rounded-sm bg-green-700 text-white py-[3px] px-[3px]'>
                               <svg className=' h-[15px]' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                               <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                               </svg>
